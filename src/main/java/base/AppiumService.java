@@ -27,40 +27,18 @@ public class AppiumService {
 		System.out.println("-----------------------Start Appium Service--------------------------------");
 		cap = new DesiredCapabilities();
 		cap.setCapability("noReset", false);
-		//cap.setCapability("relaxed-security", true);
-
-		//Build the Appium service
-		builder = new AppiumServiceBuilder();
-		builder.usingDriverExecutable(new File("C:\\Program Files\\nodejs\\node.exe"));
-		builder.withAppiumJS(new File(System.getProperty("user.home")+"\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"));
-		builder.withLogFile(new File (System.getProperty("user.home")+"\\AppiumServerLogs.txt"));
-        builder.withIPAddress("127.0.0.1");
-		builder.usingPort(port);
-
-
-		builder.withArgument(GeneralServerFlag.RELAXED_SECURITY);
-		builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
-		builder.withArgument(GeneralServerFlag.LOG_LEVEL);
-		builder.withArgument(GeneralServerFlag.LOG_LEVEL,"error");
-
-		//	if (!this.checkIfServerIsRunning(port)) {
-		//Start the server with the builder
-		service = AppiumDriverLocalService.buildService(builder);
+		AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
 		service.start();
-		appiumServerURL = service.getUrl();
-
+		appiumServerURL=service.getUrl();
 		
 		
-		//	}
-		//		else {
-		//			System.out.println("Appium Server already running on Port - " + port);
-		//		}
+		
+		 
 	}
 
-		@AfterSuite
-		public void stopServer() {
-			service.stop();
-		}
+	
+	/* @AfterSuite public void stopServer() { service.stop(); } */
+	 
 
 
 }
